@@ -12,5 +12,14 @@ before_install:
 script:
   - docker run -e CI=true kium/docker-react-app npm run test -- --coverage
 
-after_success:
-  - echo "Test Success"
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-1"
+  app: "docker-react-env"
+  env: "Dockerreactapp-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-1-457125363935"
+  bucket_path: "docker-react-app"
+  on:
+    branch: master
+access_key_id: $AWS_ACCESS_KEY
+secret_access_key: $AWS_SECRET_ACCESS_KEY
